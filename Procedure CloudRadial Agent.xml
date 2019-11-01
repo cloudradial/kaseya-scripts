@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ScriptExport xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.kaseya.com/vsa/2008/12/Scripting">
+  <Procedure name="CloudRadial Agent" treePres="3" id="2095304045" folderId="303401386273746" treeFullPath="Customer specific.CC">
+    <Body description="">
+      <If description="">
+        <Condition name="ServiceIsRunning">
+          <Parameter xsi:type="StringParameter" name="ServiceName" value="CloudRadial" />
+        </Condition>
+        <Then>
+          <Statement name="WriteScriptLogEntry" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Comment" value="Agent Already Installed" />
+          </Statement>
+        </Then>
+        <Else>
+          <Statement name="WriteFile" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Path" value="C:\cabs\CloudRadialInstaller.exe" />
+            <Parameter xsi:type="StringParameter" name="ManagedFile" value="VSASharedFiles\Cloudradial\CommandCommissioningLLC-DataAgent-190930.exe" />
+            <Parameter xsi:type="BooleanParameter" name="DeleteAfter" value="False" />
+          </Statement>
+          <Statement name="ExecuteFile" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Path" value="C:\cabs\CloudRadialInstaller.exe" />
+            <Parameter xsi:type="StringParameter" name="Arguments" value="/verysilent" />
+            <Parameter xsi:type="EnumParameter" name="ExecuteAccount" value="System" />
+            <Parameter xsi:type="BooleanParameter" name="WaitComplete" value="True" />
+          </Statement>
+          <Statement name="WriteScriptLogEntry" continueOnFail="false">
+            <Parameter xsi:type="StringParameter" name="Comment" value="Agent Newly Installed" />
+          </Statement>
+        </Else>
+      </If>
+    </Body>
+  </Procedure>
+</ScriptExport>
